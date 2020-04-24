@@ -2,8 +2,6 @@
     'use strict';
     angular.module('ngRepeat', ['ngAnimate']).controller('repeatController', ['$scope', '$timeout', function ($scope, $timeout) {
 
-        $scope.itemns = [];
-
         $scope.q = "";
 
         $scope.error = null;
@@ -87,15 +85,15 @@
                 $scope.items = result.aliases || [];
                 console.log(' $scope.items : ', $scope.items);
             });
+            $timeout(function () {
+                $scope.temp = 'a';
+                $scope.temp = undefined;
+            }, 200)
         }
 
-        $scope.storeData();
+
+        $scope.getData();
 
 
-        $timeout(function () {
-            $scope.items = []
-            $scope.temp = 'a';
-            $scope.temp = undefined;
-        })
     }]);
 })(window.angular);

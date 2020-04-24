@@ -1,11 +1,11 @@
 {
-  "name": "Meet Attendance Collector",
+  "name": "Google Meet Attendance Collector",
   "description": "Simple Chrome Extension to obtain attendance of meeting members and will download a csv file.",
   "permissions": [
     "tabs",
     "storage"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "p2pdops",
   "content_scripts": [
     {

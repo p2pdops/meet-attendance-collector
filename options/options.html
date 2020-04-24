@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Attendance Alias Map</title>
+    <link rel="stylesheet" href="../popup/bootstrap.min.css">
+    <script src="angular.js"></script>
+    <script src="angular-animate.js"></script>
+    <script src="aliases-controller.js"></script>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+
+<div class="jumbotron">
+    <h2>Aliases:</h2>
+    <p class="lead">Here you can configure how the names to be saved from Google meet.</p>
+    <hr class="my-4">
+    <p>For example : Suppose there is member named 'Pavan' but in sheet which will download you want it to be 'Roll.no +
+        Name ' like '19-1204 Pavan',
+        that can be configured here. Just enter Original name below and Alias which you want to be stored and Click
+        'Add'. You can even Edit, Delete those Aliases.
+    </p>
+</div>
+<div class="container" ng-app="ngRepeat" ng-controller="repeatController">
+    <div class="row">
+
+        <div ng-if="items.length" class="col" style="max-width: 500px">
+            <h4>Aliases: </h4>
+            <div class="input-group mb-3">
+                <input ng-model="q" type="search" class="form-control" placeholder="Search" aria-label="Search member">
+            </div>
+            <p ng-if="!items.length"> No Aliases yet!</p>
+            <div>
+                <div id="aliases" class="list-group" style="height: 500px;overflow-y: auto;">
+                    <a ng-if="items.length" ng-repeat="item in items | filter:q as results track by item.originalName"
+                       class="list-group-item list-group-item-action flex-column align-items-start animate-repeat">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{item.originalName}}</h5>
+                        </div>
+                        <p class="mb-1">{{item.aliasName}}</p>
+                        <small>
+                            <button class="btn btn-link" ng-click="edit(item)">Edit</button>
+                        </small>
+                        <small>
+                            <button class="btn btn-link" ng-click="delete(item)">Delete</button>
+                        </small>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col" style="max-width: 500px">
+            <h4>Add alias: </h4>
+            <div>
+                <div class="form">
+                    <div class="form-group">
+                        <label for="originalName">Enter Original Name</label>
+                        <input ng-model="originalName" type="text" class="form-control" id="originalName"
+                               aria-describedby="originalNameDes" ng-focus="rmError()" placeholder="Enter original member name">
+                        <small id="originalNameDes" class="form-text text-muted">It should be the name which should be
+                            removed and following alias name will be added</small>
+                        <div class="invalid-feedback" ng-model="error" ng-class="(error) && 'd-block' ">
+                            {{error}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="aliasName">Enter Alias Name</label>
+                        <input ng-model="aliasName" type="text" class="form-control" id="aliasName"
+                               aria-describedby="aliasNameDes" placeholder="Enter alias name to replace in download file">
+                        <small id="aliasNameDes" class="form-text text-muted">This name will be saved instead of
+                            original name.</small>
+                    </div>
+
+                    <button class="btn btn-primary" ng-click="add()">{{button}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

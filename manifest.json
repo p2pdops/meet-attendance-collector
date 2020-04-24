@@ -1,0 +1,38 @@
+{
+  "name": "Meet Attendance Collector",
+  "description": "Simple Chrome Extension to obtain attendance of meeting members and will download a csv file.",
+  "permissions": [
+    "tabs",
+    "storage"
+  ],
+  "version": "1.0.1",
+  "author": "p2pdops",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://meet.google.com/*"
+      ],
+      "js": [
+        "attendance.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_popup": "popup/popup.html",
+    "default_title": "Meet Attendance Colletor"
+  },
+  "options_page": "options/options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "manifest_version": 2
+}

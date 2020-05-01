@@ -17,30 +17,52 @@ chrome.storage.onChanged.addListener(function (data) {
 chrome.runtime.onMessage.addListener(
     function (message, sender, sendResponse) {
         senderRes1 = sendResponse;
-        if (message === 'downloadReq') {
+        const {msg, tabId} = message;
+        console.log(sender);
+        if (msg === 'downloadReq') {
             saveTextFile();
-        } else if (message === 'scan') {
+        } else if (msg === 'scan') {
             console.log('Req to scan')
             const containers = document.getElementsByClassName('XWGOtd');
             if (!containers || !containers.length) {
                 document.getElementsByClassName('uArJ5e UQuaGc kCyAyd kW31ib foXzLb')[0].click()
                 setTimeout(function () {
                     const ele = document.getElementsByClassName('s2gQvd')[0]
-                    scrollTo(ele, ele.scrollHeight, 1000)
-                    senderRes1({count: attendees.length})
-                    console.log('Scan Complete');
-                    document.getElementsByClassName('ThdJC kaAt2 c0XF8e s7PhZd Z9zn3b sUgV6e')[0].click()
+                    scrollTo(ele, ele.scrollHeight, 5000).then(
+                        function () {
+                            senderRes1({count: attendees.length})
+                            console.log('Scan Complete');
+                            document.getElementsByClassName('ThdJC kaAt2 c0XF8e s7PhZd Z9zn3b sUgV6e')[0].click()
+                            chrome.runtime.sendMessage(
+                                "dmoopggkbcfpjeecmjcpbfegladgijaj",
+                                {tabId: tabId},
+                                function (res) {
+                                    console.log('Done!!!', res);
+
+                                }
+                            );
+                            /* chrome.pageAction.show(tabId, function () {
+                                 console.log('Shown')
+                             })*/
+                        }
+                    )
                 }, 1000)
             } else {
                 const ele = document.getElementsByClassName('s2gQvd')[0]
-                scrollTo(ele, ele.scrollHeight, 1000)
-                senderRes1({count: attendees.length})
-                console.log('Scan Complete');
+                scrollTo(ele, ele.scrollHeight, 5000).then(
+                    function () {
+                        senderRes1({count: attendees.length})
+                        console.log('Scan Complete');
+                        /*chrome.pageAction.show(tabId, function () {
+                            console.log('Shown')
+                        })*/
+                    }
+                )
             }
-        } else if (message === 'needCount') {
+        } else if (msg === 'needCount') {
             console.log('needCount');
             senderRes1({count: attendees.length})
-        } else if (message === 'clearAttendance') {
+        } else if (msg === 'clearAttendance') {
             attendees = [];
             senderRes1('done')
         } else {
@@ -48,28 +70,35 @@ chrome.runtime.onMessage.addListener(
         console.log("Message : ", message);
     });
 
-function scrollTo(element, to, duration) {
-    let start = element.scrollTop,
-        change = to - start,
-        currentTime = 0,
-        increment = 20;
+function scrollTo(element, to,) {
+    return new Promise(function (res, rej) {
+        const duration = ((+document.getElementsByClassName('wnPUne N0PJ8e')[0].innerHTML || 0) / 10) * 400
+        element.scrollTop = 0;
+        return setTimeout(async function () {
+            let start = element.scrollTop,
+                change = to - start,
+                currentTime = 0,
+                increment = 20;
 
-    const animateScroll = function () {
-        currentTime += increment;
+            const animateScroll = function () {
+                currentTime += increment;
 
-        function easeInOutQuad(t, b, c, d) {
-            t /= d / 2;
-            if (t < 1) return c / 2 * t * t + b;
-            t--;
-            return -c / 2 * (t * (t - 2) - 1) + b;
-        }
+                function easeInOutQuad(t, b, c, d) {
+                    t /= d / 2;
+                    if (t < 1) return c / 2 * t * t + b;
+                    t--;
+                    return -c / 2 * (t * (t - 2) - 1) + b;
+                }
 
-        element.scrollTop = easeInOutQuad(currentTime, start, change, duration);
-        if (currentTime < duration) {
-            setTimeout(animateScroll, increment);
-        }
-    };
-    animateScroll();
+                element.scrollTop = easeInOutQuad(currentTime, start, change, duration);
+                if (currentTime < duration) {
+                    setTimeout(animateScroll, increment);
+                }
+            };
+            await animateScroll();
+            await res()
+        }, 1000)
+    })
 }
 
 (function () {

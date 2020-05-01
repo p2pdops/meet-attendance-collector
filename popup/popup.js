@@ -7,9 +7,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.tabs.getSelected(null, function (_tab) {
         tab = _tab
-        chrome.tabs.sendMessage(tab.id, 'needCount', function (res) {
+        const tabId = tab.id;
+        chrome.tabs.sendMessage(tabId, {msg: 'needCount', tabId}, function (res) {
             res = (res || {count: 0});
             if (res.count) counter.innerHTML = res.count;
+
+            return true;
         });
     });
 
@@ -35,22 +38,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     downloader.addEventListener('click', function () {
-        chrome.tabs.sendMessage(tab.id, 'downloadReq', function () {
+        chrome.tabs.sendMessage(tab.id, {msg: 'downloadReq', tabId: tab.id}, function () {
 
             return true;
         })
     });
 
     refresher.addEventListener('click', function () {
-        chrome.tabs.sendMessage(tab.id, 'scan', function (res) {
+        chrome.tabs.sendMessage(tab.id, {msg: 'scan', tabId: tab.id}, function (res) {
             window.close();
             return true;
-
         });
     });
 
     clearer.addEventListener('click', function () {
-        chrome.tabs.sendMessage(tab.id, 'clearAttendance', function () {
+        chrome.tabs.sendMessage(tab.id, {msg: 'clearAttendance', tabId: tab.id}, function () {
             counter.innerHTML = '0';
 
             return true;

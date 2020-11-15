@@ -10,5 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="@types/chrome" level="application" />
     <orderEntry type="library" name="angular-animate" level="application" />
+    <orderEntry type="library" name="@types/chrome" level="application" />
   </component>
 </module>

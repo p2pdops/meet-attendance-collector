@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>Meet Attendance downloader</title>
-    <link rel="stylesheet" href="./bootstrap.min.css">
+    <link rel="stylesheet" href="../libs/bootstrap.min.css">
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
@@ -10,32 +10,55 @@
     <span aria-hidden="true">&times;</span>
 </button>
 <div class="jumbotron" style="width: 500px;padding: 2rem;">
-    <h3 class="display-5">Meet Attendance Collector</h3>
-    <p class="lead">This Extension auto collects the information of available members in Google meet.</p>
-    <hr class="my-4">
-    <h3>Guide:</h3>
+    <h4 class="display-5">Meet Attendance Collector</h4>
+    <p class="lead">Chrome Extension to collect meet attendance
 
-    <ul>
-        <li> Click 'Refresh' below to scan all members and then click 'Download' to get csv file of attendance.</li>
-        <li>If you find members count showing in People and here is different then click 'Clear' below and 'Refresh'
-            again
-        </li>
-        <li><span style="color: red">*</span>If you are presenting you'll get one member less here because presentation is also counted in Meet. Here
-            extension wont consider.
-        </li>
-    </ul>
+        <button id="options" class="btn btn-link d-inline">Add/Change Aliases</button>
+    </p>
 
+
+    <h4>Single Time Attendance: </h4>
+
+    <p>Record and download attendance at this moment.</p>
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <p style="margin-bottom: .25rem;">Members : <span id="counter">0</span></p>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button id="refresh" class="btn btn-link" role="button">Rescan</button>
+            <button id="download" class="btn btn-link">Rescan + Download</button>
+            <button id="clear" class="btn btn-link">Clear</button>
+        </div>
+    </div>
+
+
+    <h4>Time-wise Attendance Recording :</h4>
+    <p>Attendance at multiple time instances </p>
+    <div class="btn-group" id="live_mon_lay">
+        <button id="take_record_mon_btn" class="btn btn-link">New Record now</button>
+        <a href="../monitor/monitor.html"
+           target="_blank"
+           class="btn btn-link"
+           role="button">Show monitor
+        </a>
+        <a href="../monitor/monitor.html"
+           target="_blank"
+           id="stop_record_mon_btn"
+           class="btn btn-link"
+           role="button">Stop monitoring
+        </a>
+    </div>
+
+    <div class="btn-group" id="start_mon_lay">
+        <button id="start_mon_btn" class="btn btn-link">Start Monitoring</button>
+    </div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated"
+             id="progress_bar"
+             role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+             style="width: 100%; display: none"></div>
+    </div>
     <div class="text-center m-0">
 
-        Members: <span class="badge badge-primary badge-pill" id="counter">0</span>
-
-
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button id="download" class="btn btn-link">Download</button>
-            <button id="refresh" class="btn btn-link" role="button">Refresh</button>
-            <button id="clear" class="btn btn-link">Clear</button>
-            <button id="options" class="btn btn-link">Aliases</button>
-        </div>
 
         <hr>
         <p class="text-center ">

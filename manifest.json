@@ -14,7 +14,9 @@
         "https://meet.google.com/*"
       ],
       "js": [
-        "attendance.js"
+        "libs/xlsx.full.min.js",
+        "attendance/utils.js",
+        "attendance/main.js"
       ],
       "run_at": "document_idle",
       "all_frames": false

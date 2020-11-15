@@ -7,12 +7,14 @@ let monitorMode = false;
 chrome.storage.sync.get(['aliases'], function (data) {
     aliases = {};
     attendees = new Set();
-    data.aliases.forEach(
-        (al) => {
-            console.log(al);
-            (aliases[al.originalName] = al.aliasName)
-        }
-    );
+    if (data.aliases) {
+        data.aliases.forEach(
+            (al) => {
+                console.log(al);
+                (aliases[al.originalName] = al.aliasName)
+            }
+        );
+    }
     console.log(aliases);
 });
 chrome.storage.onChanged.addListener(function (data) {

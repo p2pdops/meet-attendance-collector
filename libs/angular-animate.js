@@ -5,10 +5,10 @@
  */
 (function(window, angular) {'use strict';
 
-    var ELEMENT_NODE = 1;
-    var COMMENT_NODE = 8;
+    const ELEMENT_NODE = 1;
+    // var COMMENT_NODE = 8;
 
-    var ADD_CLASS_SUFFIX = '-add';
+    const ADD_CLASS_SUFFIX = '-add';
     var REMOVE_CLASS_SUFFIX = '-remove';
     var EVENT_CLASS_PREFIX = 'ng-';
     var ACTIVE_CLASS_SUFFIX = '-active';

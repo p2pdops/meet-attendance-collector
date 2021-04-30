@@ -1,4 +1,4 @@
-console.log = () => {}
+console.log = () => { }
 let aliases = {};
 let attendees = new Set();
 let respond = function () {
@@ -33,22 +33,14 @@ chrome.storage.onChanged.addListener(function (data) {
 });
 
 const takeNewMonSnap = async () => {
-    const getIsShowingMenuBox = !!document.getElementsByClassName("Bx7THd PBWx0c Uy7Qke XN1AMe").length;
-    if (!getIsShowingMenuBox) {
-        await setTimeout(() => {
-            document.getElementsByClassName(
-                "uArJ5e UQuaGc kCyAyd QU4Gid foXzLb IeuGXd"
-            )[0].click();
-        }, 200);
+
+    if (!isShowingMenuBox()) {
+        await setTimeout(() => getPeopleButton().click(), 200);
     }
-    await setTimeout(() => {
-        document.getElementsByClassName(
-            "ThdJC kaAt2 c0XF8e"
-        )[0].click();
-    }, 200);
+    await setTimeout(() => getPeopleContainerButton().click(), 200);
     const set = new Set();
     await setTimeout(async () => {
-        const container = document.getElementsByClassName("HALYaf tmIkuc s2gQvd KKjvXb")[0];
+        const container = getPeopleContainer();
         await scrollTo(container, container.scrollHeight, async () => {
             const containers = await document.getElementsByClassName("ZjFb7c");
             for (const container of containers) {
@@ -63,11 +55,9 @@ const takeNewMonSnap = async () => {
             await console.log('Final set', dateWiseRecords)
         });
     }, 200);
-    if (!getIsShowingMenuBox) {
+    if (!isShowingMenuBox()) {
         await setTimeout(() => {
-            document.getElementsByClassName(
-                "VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ IWtuld wBYOYb"
-            )[0].click();
+            getCloseButton().click();
         }, 200);
     }
 };
@@ -79,7 +69,7 @@ chrome.runtime.onMessage.addListener(async (
     sendResponse
 ) => {
     respond = sendResponse;
-    const {msg} = message;
+    const { msg } = message;
     switch (msg) {
         case 'downloadReq':
             await refresh();
@@ -93,13 +83,13 @@ chrome.runtime.onMessage.addListener(async (
             respond()
             break;
         case 'needCount':
-            await respond({count: attendees.size});
+            await respond({ count: attendees.size });
             break;
         case 'isMonitoring':
             await respond(monitorMode);
             break;
         case 'startMonitoring':
-            chrome.storage.sync.set({currentSessionUrl: window.location.href}, function () {
+            chrome.storage.sync.set({ currentSessionUrl: window.location.href }, function () {
             });
             dateWiseRecords = {}
             monitorMode = true;
@@ -116,7 +106,7 @@ chrome.runtime.onMessage.addListener(async (
             await respond();
             break;
         case 'needMonitor':
-            await respond({monitor: dateWiseRecords, monitorMode});
+            await respond({ monitor: dateWiseRecords, monitorMode });
             break;
         case 'clearAttendance':
             attendees = new Set();
@@ -127,15 +117,13 @@ chrome.runtime.onMessage.addListener(async (
 
 function scrollTo(element, to, updateCallback, finishCallBack) {
 
-    const duration =
-        ((+document.getElementsByClassName("wnPUne N0PJ8e")[0].innerHTML || 0) /
-            10) * 300;
+    const duration = ((+getCountBox().innerHTML || 0) / 10) * 300;
     element.scrollTop = 0;
     return setTimeout(async function () {
         let start = element.scrollTop,
             change = to - start,
             currentTime = 0,
-            increment = 20;
+            increment = 30;
         const animateScroll = async () => {
             currentTime += increment;
 
@@ -144,10 +132,10 @@ function scrollTo(element, to, updateCallback, finishCallBack) {
             if (currentTime < duration)
                 await setTimeout(animateScroll, increment);
 
-            await updateCallback()
+            await updateCallback && updateCallback()
         };
         await animateScroll();
-        await finishCallBack();
+        await setTimeout(() => finishCallBack && finishCallBack(), 500);
     }, 250);
 }
 
@@ -161,11 +149,10 @@ const saveFile = () => {
     let nowDate = y + "-" + twoDigits(m) + "-" + twoDigits(d),
         nowTime = today.getHours() + ":" + twoDigits(today.getMinutes());
     let header = `Attendance bot: dev(Pavan:p2pdops@gmail.com) on ${nowDate} : ${nowTime}: ${window.location.href}`;
-    let mem_head = `${
-        attendees.size ? "Members present : " + attendees.size : "No Members"
-    }`;
+    let mem_head = `${attendees.size ? "Members present : " + attendees.size : "No Members"
+        }`;
     let rows = [...attendees].map(name => [name]);
-    const ws = XLSX.utils.aoa_to_sheet([...rows], {origin: 'A5'});
+    const ws = XLSX.utils.aoa_to_sheet([...rows], { origin: 'A5' });
     XLSX.utils.sheet_add_aoa(ws, [[header], [], [mem_head]], [],);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Attendance");

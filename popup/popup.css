@@ -1,3 +1,8 @@
 .jumbotron {
-	margin: 0;
+  margin: 0;
+}
+
+.star-msg {
+  color: red;
+  font-weight: bold;
 }

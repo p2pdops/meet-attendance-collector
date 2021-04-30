@@ -1,98 +1,147 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>Meet Attendance downloader</title>
-    <link rel="stylesheet" href="../libs/bootstrap.min.css">
-    <link rel="stylesheet" href="popup.css">
-</head>
-<body>
-<button style="padding: .375rem .75rem; border: none" class="close" aria-label="Close" id="close">
-    <span aria-hidden="true">&times;</span>
-</button>
-<div class="jumbotron" style="width: 500px;padding: 2rem;">
-    <h4 class="display-5">Meet Attendance Collector</h4>
-    <p class="lead">Chrome Extension to collect meet attendance
+    <link rel="stylesheet" href="../libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <button
+      style="padding: 0.375rem 0.75rem; border: none"
+      class="close"
+      aria-label="Close"
+      id="close"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="jumbotron" style="width: 500px; padding: 2rem">
+      <h4 class="display-5">Meet Attendance Collector</h4>
+      <p class="lead">
+        Chrome Extension to collect meet attendance
 
-        <button id="options" class="btn btn-link d-inline">Add or Change Aliases</button>
-        <a href="https://sites.google.com/view/meet-attendance-collector/" target="_blank"
-           class="btn btn-link d-inline">Show Usage
-            guide</a>
-    </p>
+        <button id="options" class="btn btn-link d-inline">
+          Add or Change Aliases
+        </button>
+        <a
+          href="https://sites.google.com/view/meet-attendance-collector/"
+          target="_blank"
+          class="btn btn-link d-inline"
+          >Show Usage guide</a
+        >
+      </p>
 
+      <h4>Single Time Attendance:</h4>
 
-    <h4>Single Time Attendance: </h4>
+      <p>Record and download attendance at this moment.</p>
 
-    <p>Record and download attendance at this moment.</p>
-
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <p style="margin-bottom: .25rem;">Members : <span id="counter">0</span></p>
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <p style="margin-bottom: 0.25rem">
+          Members : <span id="counter">0</span>
+        </p>
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button id="refresh" class="btn btn-link" role="button">Rescan</button>
-            <button id="download" class="btn btn-link">Rescan + Download</button>
-            <button id="clear" class="btn btn-link">Clear</button>
+          <button id="refresh" class="btn btn-link" role="button">
+            Rescan
+          </button>
+          <button id="download" class="btn btn-link">Rescan + Download</button>
+          <button id="clear" class="btn btn-link">Clear</button>
         </div>
-    </div>
+      </div>
 
-
-    <h4>Time-wise Attendance Recording :</h4>
-    <p>Attendance at different times (NOT AUTOMATIC) </p>
-    <div class="btn-group" id="live_mon_lay">
-        <button id="take_record_mon_btn" class="btn btn-link">New Record now</button>
-        <a href="../monitor/monitor.html"
-           target="_blank"
-           class="btn btn-link"
-           role="button">Show monitor
+      <h4>Time-wise Attendance Recording :</h4>
+      <p>Attendance at different times (NOT AUTOMATIC)</p>
+      <div class="btn-group" id="live_mon_lay">
+        <button id="take_record_mon_btn" class="btn btn-link">
+          New Record now
+        </button>
+        <a
+          href="../monitor/monitor.html"
+          target="_blank"
+          class="btn btn-link"
+          role="button"
+          >Show monitor
         </a>
-        <a href="../monitor/monitor.html"
-           target="_blank"
-           id="stop_record_mon_btn"
-           class="btn btn-link"
-           role="button">Stop monitoring
+        <a
+          href="../monitor/monitor.html"
+          target="_blank"
+          id="stop_record_mon_btn"
+          class="btn btn-link"
+          role="button"
+          >Stop monitoring
         </a>
 
         <div class="d-block">
-            <p>Click <code>New Record now</code> to add attendance record. </p>
+          <p class="text-center">
+            Click <code>New Record now</code> to add attendance record.
+          </p>
         </div>
-    </div>
+      </div>
 
-    <div class="btn-group" id="start_mon_lay">
-        <button id="start_mon_btn" class="btn btn-link">Start Monitoring</button>
-    </div>
-    <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated"
-             id="progress_bar"
-             role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-             style="width: 100%; display: none"></div>
-    </div>
-    <div class="text-center m-0">
+      <div class="btn-group" id="start_mon_lay">
+        <button id="start_mon_btn" class="btn btn-link">
+          Start Monitoring
+        </button>
+      </div>
+      <div
+        class="progress progress-bar progress-bar-striped progress-bar-animated"
+        id="progress_bar"
+        role="progressbar"
+        aria-valuenow="100"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        style="width: 100%; display: none; height: 5px"
+      ></div>
+      <div class="text-center m-0">
+        <hr />
 
+        <p class="star-msg">*** New Update: Bugs Fixed ***</p>
+        <p>* Try time wise attendance to multiple records of attendance</p>
 
-        <hr>
-        <p class="text-center ">
-            p2pdops
-        </p>
+        <p class="text-center">by p2pdops</p>
 
         <div class="btn-group mr-2" role="group" aria-label="First group">
-            <a target="_blank" href="mailto:p2pdops@gmail.com" type="button" class="btn btn-link">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMTIuNzEzbC0xMS45ODUtOS43MTNoMjMuOTcxbC0xMS45ODYgOS43MTN6bS01LjQyNS0xLjgyMmwtNi41NzUtNS4zMjl2MTIuNTAxbDYuNTc1LTcuMTcyem0xMC44NSAwbDYuNTc1IDcuMTcydi0xMi41MDFsLTYuNTc1IDUuMzI5em0tMS41NTcgMS4yNjFsLTMuODY4IDMuMTM1LTMuODY4LTMuMTM1LTguMTEgOC44NDhoMjMuOTU2bC04LjExLTguODQ4eiIvPjwvc3ZnPg=="
-                     alt="">
-            </a>
-            <a target="_blank" href="https://github.com/p2pdops" type="button" class="btn btn-link">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjYgMC0xMiA1LjM3My0xMiAxMiAwIDUuMzAyIDMuNDM4IDkuOCA4LjIwNyAxMS4zODcuNTk5LjExMS43OTMtLjI2MS43OTMtLjU3N3YtMi4yMzRjLTMuMzM4LjcyNi00LjAzMy0xLjQxNi00LjAzMy0xLjQxNi0uNTQ2LTEuMzg3LTEuMzMzLTEuNzU2LTEuMzMzLTEuNzU2LTEuMDg5LS43NDUuMDgzLS43MjkuMDgzLS43MjkgMS4yMDUuMDg0IDEuODM5IDEuMjM3IDEuODM5IDEuMjM3IDEuMDcgMS44MzQgMi44MDcgMS4zMDQgMy40OTIuOTk3LjEwNy0uNzc1LjQxOC0xLjMwNS43NjItMS42MDQtMi42NjUtLjMwNS01LjQ2Ny0xLjMzNC01LjQ2Ny01LjkzMSAwLTEuMzExLjQ2OS0yLjM4MSAxLjIzNi0zLjIyMS0uMTI0LS4zMDMtLjUzNS0xLjUyNC4xMTctMy4xNzYgMCAwIDEuMDA4LS4zMjIgMy4zMDEgMS4yMy45NTctLjI2NiAxLjk4My0uMzk5IDMuMDAzLS40MDQgMS4wMi4wMDUgMi4wNDcuMTM4IDMuMDA2LjQwNCAyLjI5MS0xLjU1MiAzLjI5Ny0xLjIzIDMuMjk3LTEuMjMuNjUzIDEuNjUzLjI0MiAyLjg3NC4xMTggMy4xNzYuNzcuODQgMS4yMzUgMS45MTEgMS4yMzUgMy4yMjEgMCA0LjYwOS0yLjgwNyA1LjYyNC01LjQ3OSA1LjkyMS40My4zNzIuODIzIDEuMTAyLjgyMyAyLjIyMnYzLjI5M2MwIC4zMTkuMTkyLjY5NC44MDEuNTc2IDQuNzY1LTEuNTg5IDguMTk5LTYuMDg2IDguMTk5LTExLjM4NiAwLTYuNjI3LTUuMzczLTEyLTEyLTEyeiIvPjwvc3ZnPg=="
-                     alt="">
-            </a>
-            <a target="_blank" href="https://facebook.com/p2pdops" type="button" class="btn btn-link">
-                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOSA4aC0zdjRoM3YxMmg1di0xMmgzLjY0MmwuMzU4LTRoLTR2LTEuNjY3YzAtLjk1NS4xOTItMS4zMzMgMS4xMTUtMS4zMzNoMi44ODV2LTVoLTMuODA4Yy0zLjU5NiAwLTUuMTkyIDEuNTgzLTUuMTkyIDQuNjE1djMuMzg1eiIvPjwvc3ZnPg=="
-                     alt="">
-            </a>
+          <a
+            target="_blank"
+            href="mailto:p2pdops@gmail.com"
+            type="button"
+            class="btn btn-link"
+          >
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMTIuNzEzbC0xMS45ODUtOS43MTNoMjMuOTcxbC0xMS45ODYgOS43MTN6bS01LjQyNS0xLjgyMmwtNi41NzUtNS4zMjl2MTIuNTAxbDYuNTc1LTcuMTcyem0xMC44NSAwbDYuNTc1IDcuMTcydi0xMi41MDFsLTYuNTc1IDUuMzI5em0tMS41NTcgMS4yNjFsLTMuODY4IDMuMTM1LTMuODY4LTMuMTM1LTguMTEgOC44NDhoMjMuOTU2bC04LjExLTguODQ4eiIvPjwvc3ZnPg=="
+              alt=""
+            />
+          </a>
+          <a
+            target="_blank"
+            href="https://github.com/p2pdops"
+            type="button"
+            class="btn btn-link"
+          >
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjYgMC0xMiA1LjM3My0xMiAxMiAwIDUuMzAyIDMuNDM4IDkuOCA4LjIwNyAxMS4zODcuNTk5LjExMS43OTMtLjI2MS43OTMtLjU3N3YtMi4yMzRjLTMuMzM4LjcyNi00LjAzMy0xLjQxNi00LjAzMy0xLjQxNi0uNTQ2LTEuMzg3LTEuMzMzLTEuNzU2LTEuMzMzLTEuNzU2LTEuMDg5LS43NDUuMDgzLS43MjkuMDgzLS43MjkgMS4yMDUuMDg0IDEuODM5IDEuMjM3IDEuODM5IDEuMjM3IDEuMDcgMS44MzQgMi44MDcgMS4zMDQgMy40OTIuOTk3LjEwNy0uNzc1LjQxOC0xLjMwNS43NjItMS42MDQtMi42NjUtLjMwNS01LjQ2Ny0xLjMzNC01LjQ2Ny01LjkzMSAwLTEuMzExLjQ2OS0yLjM4MSAxLjIzNi0zLjIyMS0uMTI0LS4zMDMtLjUzNS0xLjUyNC4xMTctMy4xNzYgMCAwIDEuMDA4LS4zMjIgMy4zMDEgMS4yMy45NTctLjI2NiAxLjk4My0uMzk5IDMuMDAzLS40MDQgMS4wMi4wMDUgMi4wNDcuMTM4IDMuMDA2LjQwNCAyLjI5MS0xLjU1MiAzLjI5Ny0xLjIzIDMuMjk3LTEuMjMuNjUzIDEuNjUzLjI0MiAyLjg3NC4xMTggMy4xNzYuNzcuODQgMS4yMzUgMS45MTEgMS4yMzUgMy4yMjEgMCA0LjYwOS0yLjgwNyA1LjYyNC01LjQ3OSA1LjkyMS40My4zNzIuODIzIDEuMTAyLjgyMyAyLjIyMnYzLjI5M2MwIC4zMTkuMTkyLjY5NC44MDEuNTc2IDQuNzY1LTEuNTg5IDguMTk5LTYuMDg2IDguMTk5LTExLjM4NiAwLTYuNjI3LTUuMzczLTEyLTEyLTEyeiIvPjwvc3ZnPg=="
+              alt=""
+            />
+          </a>
+          <a
+            target="_blank"
+            href="https://facebook.com/p2pdops"
+            type="button"
+            class="btn btn-link"
+          >
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNOSA4aC0zdjRoM3YxMmg1di0xMmgzLjY0MmwuMzU4LTRoLTR2LTEuNjY3YzAtLjk1NS4xOTItMS4zMzMgMS4xMTUtMS4zMzNoMi44ODV2LTVoLTMuODA4Yy0zLjU5NiAwLTUuMTkyIDEuNTgzLTUuMTkyIDQuNjE1djMuMzg1eiIvPjwvc3ZnPg=="
+              alt=""
+            />
+          </a>
         </div>
-
-
+      </div>
     </div>
-</div>
 
-
-<script src="popup.js"></script>
-
-</body>
+    <script src="popup.js"></script>
+  </body>
 </html>

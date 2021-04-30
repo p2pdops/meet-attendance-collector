@@ -1,80 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meet Attendance: Monitor</title>
-    <link rel="stylesheet" href="../libs/bootstrap.min.css">
+    <link rel="stylesheet" href="../libs/bootstrap.min.css" />
     <script src="../libs/angular.min.js"></script>
     <script src="../libs/angular-animate.js"></script>
     <script src="../libs/xlsx.full.min.js"></script>
     <script src="monitor-controller.js"></script>
-    <link rel="stylesheet" href="monitor-styles.css">
-</head>
-<body ng-app="ngMonitor" ng-controller="repeatController">
-<div class="jumbotron">
-    <h2>Meet Attendance Monitor</h2>
-    <p class="lead">Here you can see live attendance of on going meet session of {{meetUrl}}</p>
+    <link rel="stylesheet" href="monitor-styles.css" />
+  </head>
+  <body ng-app="ngMonitor" ng-controller="repeatController">
+    <div class="jumbotron">
+      <h2>Meet Attendance Monitor</h2>
+      <p class="lead">
+        Here you can see live attendance of on going meet session of {{meetUrl}}
+      </p>
 
-    <hr/>
+      <hr />
 
-
-    <div style="display: flex; justify-content: space-between">
+      <div style="display: flex; justify-content: space-between">
         <!--        <span class="p-1" style="color: red">*Attendance monitor</span>-->
-        <p class="d-inline m-0" style="color: red">
-        <p ng-if="monitorMode">To take new record of attendance, click <code>New Record now</code> (in extension) or
-            <code>Blue button ➜</code> <br>
-            You can download attendance by clicking <code>Download CSV/Excel Sheet</code>➜
+        <p class="d-inline m-0" style="color: red"></p>
+        <p ng-if="monitorMode">
+          To take new record of attendance, click
+          <code>New Record now</code> (in extension) or
+          <code>Blue button ➜</code> <br />
+          You can download attendance by clicking
+          <code>Download CSV/Excel Sheet</code>➜
         </p>
-        <p ng-if="!monitorMode">As you've stopped monitoring please download the recorded attendance now. Soon it may be
-            deleted from cache.</p>
+        <p ng-if="!monitorMode">
+          As you've stopped monitoring please download the recorded attendance
+          now. Soon it may be deleted from cache.
+        </p>
         <div class="btn-group" role="group">
-            <button ng-if="monitorMode" class="btn btn-primary" ng-click="newSnap()">Record NEW Attendance Now
-                ({{time}})
-            </button>
-            <button class="btn btn-info" ng-click="saveFile(true)">Download CSV</button>
-            <button class="btn btn-success" ng-click="saveFile()">Download Excel Sheet</button>
+          <button
+            ng-if="monitorMode"
+            class="btn btn-primary"
+            ng-click="newSnap()"
+          >
+            Record NEW Attendance Now ({{time}})
+          </button>
+          <button class="btn btn-info" ng-click="saveFile(true)">
+            Download CSV
+          </button>
+          <button class="btn btn-success" ng-click="saveFile()">
+            Download Excel Sheet
+          </button>
         </div>
-
-    </div>
-</div>
-
-<div class="container">
-
-
-    <div ng-if="show_progress" class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated"
-             id="progress_bar"
-             role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-             style="width: 100%;"></div>
+      </div>
     </div>
 
-    <table class="table table-responsive table-hover " id="attendance-table">
+    <div class="container">
+      <div ng-if="show_progress" class="progress">
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated"
+          id="progress_bar"
+          role="progressbar"
+          aria-valuenow="100"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: 100%"
+        ></div>
+      </div>
+
+      <table class="table table-responsive table-hover" id="attendance-table">
         <thead>
-        <tr>
+          <tr>
             <th scope="col">Attendee</th>
             <th scope="col">Score</th>
-            <th scope="col" ng-if="cols.length" ng-repeat="item in cols">{{item}}</th>
-        </tr>
+            <th scope="col" ng-if="cols.length" ng-repeat="item in cols">
+              {{item}}
+            </th>
+          </tr>
         </thead>
         <tbody>
-        <tr ng-if="attendees.length" ng-repeat="name in attendees;">
+          <tr ng-if="attendees.length" ng-repeat="name in attendees;">
             <td>{{name}}</td>
-            <td class="text-center" ng-if="cols.length">{{scores[name]}}/{{cols.length}}</td>
-            <td class="text-center" ng-if="cols.length" ng-repeat="col in cols">
-                {{raw[col].includes(name) ? '✅' : '❎'}}
-            </td>
-        </tr>
-        <tr ng-if="attendees.length" ng-repeat="name in attendees;">
-            <td></td>
-            <td class="text-center" ng-if="cols.length">Avg: {{avgScore}}/{{cols.length}}</td>
             <td class="text-center" ng-if="cols.length">
-
+              {{scores[name]}}/{{cols.length}}
             </td>
-        </tr>
+            <td class="text-center" ng-if="cols.length" ng-repeat="col in cols">
+              {{raw[col].includes(name) ? '✅' : '❎'}}
+            </td>
+          </tr>
+          <tr ng-if="attendees.length">
+            <td></td>
+            <td class="text-center" ng-if="cols.length" colspan="cols.length">
+              Avg: {{avgScore}}/{{cols.length}}
+            </td>
+          </tr>
         </tbody>
-    </table>
-</div>
-
-</body>
+      </table>
+    </div>
+  </body>
 </html>

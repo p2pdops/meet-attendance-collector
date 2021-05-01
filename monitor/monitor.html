@@ -69,7 +69,7 @@
         <thead>
           <tr>
             <th scope="col">Attendee</th>
-            <th scope="col">Score</th>
+            <th class="text-center" scope="col">Score</th>
             <th scope="col" ng-if="cols.length" ng-repeat="item in cols">
               {{item}}
             </th>
@@ -87,8 +87,8 @@
           </tr>
           <tr ng-if="attendees.length">
             <td></td>
-            <td class="text-center" ng-if="cols.length" colspan="cols.length">
-              Avg: {{avgScore}}/{{cols.length}}
+            <td class="text-center" ng-if="cols.length" colspan="cols.length+2">
+              Average score: {{avgScore}}/{{cols.length}}
             </td>
           </tr>
         </tbody>

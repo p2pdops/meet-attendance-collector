@@ -20,7 +20,7 @@ console.log = () => {
                 chrome.tabs.query({
                     url: $scope.meetUrl
                 }, function (tab) {
-                    chrome.tabs.sendMessage(tab[0].id, {msg: 'needMonitor'}, function (res) {
+                    chrome.tabs.sendMessage(tab[0].id, { msg: 'needMonitor' }, function (res) {
 
 
                         if (res.monitorMode === false) {
@@ -40,11 +40,11 @@ console.log = () => {
                                 const exist = $scope.raw[col].includes(name);
                                 const prevVal = ($scope.scores[name] || 0)
                                 $scope.scores[name] = prevVal + (exist ? 1 : 0);
-                                console.log({col: $scope.raw[col], name, exist, prevVal, newScore: $scope.scores[name]})
+                                console.log({ col: $scope.raw[col], name, exist, prevVal, newScore: $scope.scores[name] })
                             }
                         }
 
-                        $scope.avgScore = (Object.values($scope.scores)).reduce((a, b) => a + b, 0) / $scope.attendees.length;
+                        $scope.avgScore = Math.round(((Object.values($scope.scores)).reduce((a, b) => a + b, 0) * 100 / $scope.attendees.length)) / 100;
 
                         console.log($scope)
                         $timeout(function () {
@@ -82,9 +82,8 @@ console.log = () => {
                 ctime = today.getHours() + ":" + twoDigits(today.getMinutes());
 
             let header = `Attendance bot: dev(Pavan:p2pdops@gmail.com) on ${cdate} : ${ctime}: ${$scope.meetUrl}`;
-            let mem_head = `${
-                $scope.attendees.length ? "Members present : " + $scope.attendees.length : "No Members"
-            }`;
+            let mem_head = `${$scope.attendees.length ? "Members present : " + $scope.attendees.length : "No Members"
+                }`;
 
             const colLength = $scope.cols.length
 
@@ -107,13 +106,13 @@ console.log = () => {
 
             console.log(rows)
 
-            const ws = XLSX.utils.json_to_sheet([...rows], {origin: 'A6'});
+            const ws = XLSX.utils.json_to_sheet([...rows], { origin: 'A6' });
 
             XLSX.utils.sheet_add_aoa(ws, [[header], [], [mem_head]], [], ['Data', '', 'Time']);
 
             ws["!merges"] = [
-                {s: {r: 4, c: 0}, e: {r: 4, c: 1}},
-                {s: {r: 4, c: 2}, e: {r: 4, c: 2 + colLength - 1}},
+                { s: { r: 4, c: 0 }, e: { r: 4, c: 1 } },
+                { s: { r: 4, c: 2 }, e: { r: 4, c: 2 + colLength - 1 } },
             ];
 
 
@@ -135,7 +134,7 @@ console.log = () => {
                 url: $scope.meetUrl
             }, function (tab) {
 
-                chrome.tabs.sendMessage(tab[0].id, {msg: 'takeNewMonSnap', tabId: tab.id}, function () {
+                chrome.tabs.sendMessage(tab[0].id, { msg: 'takeNewMonSnap', tabId: tab.id }, function () {
                     setTimeout(() => {
                         window.location.reload()
                     }, 1750);

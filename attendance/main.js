@@ -40,7 +40,9 @@ const takeNewMonSnap = async () => {
     await setTimeout(() => getPeopleContainerButton().click(), 200);
     const set = new Set();
     await setTimeout(async () => {
-        const container = getPeopleContainer();
+        let container = getPeopleContainer();
+        !container && await setTimeout(() => { }, 500)
+        container = getPeopleContainer();
         await scrollTo(container, container.scrollHeight, async () => {
             const containers = await document.getElementsByClassName("ZjFb7c");
             for (const container of containers) {

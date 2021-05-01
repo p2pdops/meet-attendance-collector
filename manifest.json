@@ -17,13 +17,12 @@
     }
   ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
   "externally_connectable": {
     "matches": ["*://meet.google.com/*"]
   },
-  "page_action": {
+  "action": {
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",

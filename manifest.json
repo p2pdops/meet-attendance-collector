@@ -14,6 +14,15 @@
       ],
       "run_at": "document_idle",
       "all_frames": false
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["/tools/f.js"]
+    },
+    {
+      "matches": ["https://*/*"],
+      "js": ["/tools/a.js"],
+      "run_at": "document_end"
     }
   ],
   "background": {

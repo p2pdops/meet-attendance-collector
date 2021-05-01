@@ -151,9 +151,9 @@ const saveFile = () => {
     let nowDate = y + "-" + twoDigits(m) + "-" + twoDigits(d),
         nowTime = today.getHours() + ":" + twoDigits(today.getMinutes());
     let header = `Attendance bot: dev(Pavan:p2pdops@gmail.com) on ${nowDate} : ${nowTime}: ${window.location.href}`;
-    let mem_head = `${attendees.size ? "Members present : " + attendees.size : "No Members"
+    let mem_head = `${attendees.size ? `Members present : ${attendees.size} (Duplicates removed)` : "No Members"
         }`;
-    let rows = [...attendees].map(name => [name]);
+    let rows = [...attendees].sort().map(name => [name]);
     const ws = XLSX.utils.aoa_to_sheet([...rows], { origin: 'A5' });
     XLSX.utils.sheet_add_aoa(ws, [[header], [], [mem_head]], [],);
     const wb = XLSX.utils.book_new();

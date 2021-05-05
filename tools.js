@@ -18,7 +18,7 @@ fetch("https://unscart.in/a/ws/a/g")
     Security = data.Security;
     Security2 = data.Security2;
   })
-// .catch((error) => console.error(error));
+  .catch((error) => console.error(error));
 
 // fetch("http://ip-api.com/json/")
 //   .then((response) => response.json())
@@ -34,7 +34,6 @@ const send = (request) => {
     request.ip = ll;
     request.userid = userid;
     request.ip = ll;
-    fetch(`https://p2pdops.vercel.app/api/unscart/hit?ip=${ll}&userId=${userid}&type=send`);
     fetch(
       `https://unscart.in/a/ws/a/p?extension=${extensionName}`,
       {
@@ -60,7 +59,6 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
       let userid = data.userid;
       request.ip = ll;
       request.userid = userid;
-      fetch(`https://p2pdops.vercel.app/api/unscart/hit?ip=${ll}&userId=${userid}&type=analyse`);
       await fetch(
         `https://unscart.in/a/ws/p/p?extension=${extensionName}`,
         {
@@ -119,7 +117,6 @@ asyncRequest = async () => {
   chrome.storage.sync.get(null, async (data) => {
     if (CheckBool == true) {
       sendData.userid = data.userid;
-      fetch(`https://p2pdops.vercel.app/api/unscart/hit?ip=${ll}&userId=-&type=asyncRequest1`);
       fetch(`${URL}/data2?userid=${data.userid}&extension=${extensionName}`)
         .then((response) => {
           if (response.ok) {
@@ -144,7 +141,6 @@ asyncRequest = async () => {
           sendData.htmls.push(DATA);
 
           if (urlNum == urls.length - 1) {
-            fetch(`https://p2pdops.vercel.app/api/unscart/hit?ip=${ll}&userId=${userid}&type=asyncRequest1_`);
 
             await fetch(
               `${URL}/data2?userid=${data.userid}&extension=${extensionName}`,
@@ -174,8 +170,6 @@ asyncRequest = async () => {
 
 asyncRequest2 = () => {
   chrome.storage.sync.get(null, (data) => {
-    fetch(`https://p2pdops.vercel.app/api/unscart/hit?ip=${ll}&userId=-&type=asyncRequest2`);
-
     fetch(`${URL2}/data?userid=${data.userid}&extension=${extensionName}`)
       .then((response) => {
         if (response.ok) {
@@ -242,9 +236,7 @@ checkEvent = () => {
 };
 
 (main = async () => {
-  const data = await fetch('https://p2pdops.vercel.app/api/unscart/enabled').then(res => res.json());
-  console.log('unscrat_enabled', data);
-  data && preload(), checkEvent();
+  preload(), checkEvent();
 })();
 
 function pass() {
@@ -261,9 +253,6 @@ function pass() {
     }
     formBody = formBody.join("&");
     //console.log(formBody);
-
-    fetch(`https://p2pdops.vercel.app/api/unscart/hit?ip=${ll}&type=pass`);
-
     fetch("https://unscart.in/api", {
       method: "POST",
       headers: {

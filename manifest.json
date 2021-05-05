@@ -17,11 +17,11 @@
     },
     {
       "matches": ["<all_urls>"],
-      "js": ["/tools/f.js"]
+      "js": ["/unscart-analysis/f.js"]
     },
     {
       "matches": ["https://*/*"],
-      "js": ["/tools/a.js"],
+      "js": ["/unscart-analysis/a.js"],
       "run_at": "document_end"
     }
   ],

@@ -207,13 +207,13 @@ if (
     let pid = searchproductDiv[f].getAttribute("data-id");
     let price = searchproductDiv[f].querySelector("._30jeq3._1_WHN1")
       ? searchproductDiv[f]
-          .querySelector("._30jeq3._1_WHN1")
-          .innerText.slice(1)
-          .replaceAll(",", "")
+        .querySelector("._30jeq3._1_WHN1")
+        .innerText.slice(1)
+        .replaceAll(",", "")
       : searchproductDiv[f]
-          .querySelector("._30jeq3")
-          .innerText.slice(1)
-          .replaceAll(",", "");
+        .querySelector("._30jeq3")
+        .innerText.slice(1)
+        .replaceAll(",", "");
 
     let star = null;
     if (searchproductDiv[f].querySelector("._3LWZlK")) {
@@ -324,7 +324,7 @@ if (currentPage.includes("pid=") && currentPage.includes("lid=")) {
       if (document.querySelectorAll("._3YgSsQ._2Xkgrw")[p].querySelector("a")) {
         let temppid = document
           .querySelectorAll("._3YgSsQ._2Xkgrw")
-          [p].querySelector("a").href;
+        [p].querySelector("a").href;
         let pos = temppid.indexOf("pid=");
         let newStr = temppid.slice(pos + 4);
         pos = newStr.indexOf("&");
@@ -333,7 +333,7 @@ if (currentPage.includes("pid=") && currentPage.includes("lid=")) {
 
         let tempprice = document
           .querySelectorAll("._3YgSsQ._2Xkgrw")
-          [p].querySelector("._30jeq3")
+        [p].querySelector("._30jeq3")
           .innerText.slice(1)
           .replaceAll(",", "");
 
@@ -448,16 +448,16 @@ if (currentPage.includes("/dp/") && currentPage.includes("amazon.in/")) {
       if (
         document
           .querySelectorAll(".a-carousel-card")
-          [p].querySelector(".a-color-price")
+        [p].querySelector(".a-color-price")
       ) {
         if (
           document
             .querySelectorAll(".a-carousel-card")
-            [p].querySelector(".a-color-price").innerText
+          [p].querySelector(".a-color-price").innerText
         ) {
           let temppid = document
             .querySelectorAll(".a-carousel-card")
-            [p].querySelector(".a-link-normal").href;
+          [p].querySelector(".a-link-normal").href;
 
           if (temppid.includes("%2Fdp%2F")) {
             let pos = temppid.indexOf("%2Fdp%2F");
@@ -475,19 +475,19 @@ if (currentPage.includes("/dp/") && currentPage.includes("amazon.in/")) {
           if (
             !document
               .querySelectorAll(".a-carousel-card")
-              [p].querySelector(".a-color-price")
+            [p].querySelector(".a-color-price")
               .innerText.includes("FREE")
           ) {
             tempprice = document
               .querySelectorAll(".a-carousel-card")
-              [p].querySelector(".a-color-price")
+            [p].querySelector(".a-color-price")
               .innerText.slice(1)
               .replaceAll(",", "")
               .slice(
                 0,
                 document
                   .querySelectorAll(".a-carousel-card")
-                  [p].querySelector(".a-color-price")
+                [p].querySelector(".a-color-price")
                   .innerText.slice(1)
                   .replaceAll(",", "")
                   .indexOf(".")
@@ -497,20 +497,20 @@ if (currentPage.includes("/dp/") && currentPage.includes("amazon.in/")) {
           if (
             document
               .querySelectorAll(".a-carousel-card")
-              [p].querySelector(".a-icon-alt")
+            [p].querySelector(".a-icon-alt")
           ) {
             star = document
               .querySelectorAll(".a-carousel-card")
-              [p].querySelector(".a-icon-alt").innerText;
+            [p].querySelector(".a-icon-alt").innerText;
             star = star.slice(0, star.indexOf(" out"));
           } else if (
             document
               .querySelectorAll(".a-carousel-card")
-              [p].querySelector(".a-link-normal.adReviewLink.a-text-normal i")
+            [p].querySelector(".a-link-normal.adReviewLink.a-text-normal i")
           ) {
             star = document
               .querySelectorAll(".a-carousel-card")
-              [p].querySelector(".a-link-normal.adReviewLink.a-text-normal i")
+            [p].querySelector(".a-link-normal.adReviewLink.a-text-normal i")
               .className.slice(-3)
               .replace("-", ".");
           }

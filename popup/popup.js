@@ -2,6 +2,9 @@
 let tab = null;
 
 document.addEventListener('DOMContentLoaded', function () {
+    const ext_version = chrome.app.getDetails().version;
+
+    document.getElementById('version').innerHTML = `Version ${ext_version} by p2pdops`
 
     const counter = document.getElementById('counter');
     const start_mon_lay = document.getElementById('start_mon_lay');

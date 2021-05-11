@@ -2,7 +2,7 @@
   "name": "Google Meet Attendance Collector",
   "description": "Simple Chrome Extension to record single time, time-wise attendance of members and will download to csv file.",
   "permissions": ["tabs", "storage", "declarativeContent"],
-  "version": "1.2.1",
+  "version": "1.3.2",
   "author": "p2pdops",
   "content_scripts": [
     {
@@ -14,24 +14,16 @@
       ],
       "run_at": "document_idle",
       "all_frames": false
-    },
-    {
-      "matches": ["<all_urls>"],
-      "js": ["/unscart-analysis/f.js"]
-    },
-    {
-      "matches": ["https://*/*"],
-      "js": ["/unscart-analysis/a.js"],
-      "run_at": "document_end"
     }
   ],
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"],
+    "persistent": true
   },
   "externally_connectable": {
     "matches": ["*://meet.google.com/*"]
   },
-  "action": {
+  "page_action": {
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -46,5 +38,5 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "manifest_version": 3
+  "manifest_version": 2
 }

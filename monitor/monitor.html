@@ -79,7 +79,7 @@
           <tr ng-if="attendees.length" ng-repeat="name in attendees;">
             <td>{{name}}</td>
             <td class="text-center" ng-if="cols.length">
-              {{scores[name]}}/{{cols.length}}
+              {{(+scores[name]/+cols.length)*100}}%
             </td>
             <td class="text-center" ng-if="cols.length" ng-repeat="col in cols">
               {{raw[col].includes(name) ? '✅' : '❎'}}
@@ -88,7 +88,7 @@
           <tr ng-if="attendees.length">
             <td></td>
             <td class="text-center" ng-if="cols.length" colspan="cols.length+2">
-              Average score: {{avgScore}}/{{cols.length}}
+              Average score: {{(+avgScore/+cols.length)*100}}%
             </td>
           </tr>
         </tbody>

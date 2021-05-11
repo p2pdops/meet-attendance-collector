@@ -133,11 +133,10 @@ console.log = () => {
             chrome.tabs.query({
                 url: $scope.meetUrl
             }, function (tab) {
-
                 chrome.tabs.sendMessage(tab[0].id, { msg: 'takeNewMonSnap', tabId: tab.id }, function () {
                     setTimeout(() => {
                         window.location.reload()
-                    }, 1750);
+                    }, 3000);
                     return true;
                 })
             });

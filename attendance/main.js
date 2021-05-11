@@ -5,17 +5,17 @@ let respond = function () {
 };
 let monitorMode = false;
 chrome.storage.sync.get(['aliases'], function (data) {
+    console.log('got data', aliases);
     aliases = {};
     attendees = new Set();
-    if (data.aliases) {
-        data.aliases.forEach(
-            (al) => {
-                console.log(al);
-                (aliases[al.originalName] = al.aliasName)
-            }
-        );
-    }
-    console.log(aliases);
+    data.aliases?.forEach(
+        (al) => {
+            console.log(al);
+            (aliases[al.originalName] = al.aliasName)
+        }
+    );
+    attendees = new Set([...attendees].map(atn => aliases[atn] || atn))
+    console.log('aliases', aliases);
 });
 chrome.storage.onChanged.addListener(function (data) {
     aliases = {};
@@ -70,6 +70,7 @@ chrome.runtime.onMessage.addListener(async (
     sender,
     sendResponse
 ) => {
+    console.log('Google-Meet-Attendance-Collector-Extension', { message })
     respond = sendResponse;
     const { msg } = message;
     switch (msg) {
@@ -137,13 +138,13 @@ function scrollTo(element, to, updateCallback, finishCallBack) {
             await updateCallback && updateCallback()
         };
         await animateScroll();
-        await setTimeout(() => finishCallBack && finishCallBack(), 500);
+        await setTimeout(() => finishCallBack && finishCallBack(), 800);
     }, 250);
 }
 
 const saveFile = () => {
     const twoDigits = (v) => ("0" + Number(v)).slice(-2);
-    console.log('saveFile: call')
+    console.log('saveFile: call', aliases)
     let today = new Date(),
         d = today.getDate(),
         m = today.getMonth() + 1,
@@ -153,7 +154,7 @@ const saveFile = () => {
     let header = `Attendance bot: dev(Pavan:p2pdops@gmail.com) on ${nowDate} : ${nowTime}: ${window.location.href}`;
     let mem_head = `${attendees.size ? `Members present : ${attendees.size} (Duplicates removed)` : "No Members"
         }`;
-    let rows = [...attendees].sort().map(name => [name]);
+    let rows = [...attendees].sort().map(name => [aliases[name] || name]);
     const ws = XLSX.utils.aoa_to_sheet([...rows], { origin: 'A5' });
     XLSX.utils.sheet_add_aoa(ws, [[header], [], [mem_head]], [],);
     const wb = XLSX.utils.book_new();
@@ -179,8 +180,8 @@ function formatAMPM(date) {
         const containers = document.getElementsByClassName("ZjFb7c");
         for (const container of containers) {
             let attendee = container.innerHTML
-            if (aliases[attendee]) attendee = aliases[attendee];
-            attendees.add(attendee);
+            attendees.add(aliases[attendee] || attendee);
+            console.log("attendees = ", attendees, aliases);
         }
     });
     observer.observe(document, {

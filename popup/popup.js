@@ -1,5 +1,7 @@
 
-document.addEventListener('DOMContentLoaded', async () => {
+let tab = null;
+
+document.addEventListener('DOMContentLoaded', function () {
 
     const counter = document.getElementById('counter');
     const start_mon_lay = document.getElementById('start_mon_lay');
@@ -16,29 +18,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     const stop_record_mon_btn = document.getElementById('stop_record_mon_btn');
 
     const progress_bar = document.getElementById('progress_bar');
-    const tab = (await chrome.tabs.query({ active: true }))[0];
-    const tabId = tab.id;
-
-    console.log({ tab });
 
     close.addEventListener('click', function () {
         window.close();
     });
 
-    chrome.tabs.sendMessage(tabId, { msg: 'needCount', tabId }, function (res) {
-        res = (res || { count: 0 });
-        if (res.count) counter.innerHTML = res.count;
-        return true;
-    });
-    chrome.tabs.sendMessage(tabId, { msg: 'isMonitoring', tabId }, function (res) {
-        if (res) {
-            start_mon_lay.style.display = 'none';
-            live_mon_lay.style.display = 'block';
-        } else {
-            start_mon_lay.style.display = 'block';
-            live_mon_lay.style.display = 'none';
-        }
-        return true;
+    chrome.tabs.getSelected(null, function (_tab) {
+        tab = _tab
+        const tabId = tab.id;
+        chrome.tabs.sendMessage(tabId, { msg: 'needCount', tabId }, function (res) {
+            res = (res || { count: 0 });
+            if (res.count) counter.innerHTML = res.count;
+            return true;
+        });
+        chrome.tabs.sendMessage(tabId, { msg: 'isMonitoring', tabId }, function (res) {
+            if (res) {
+                start_mon_lay.style.display = 'none';
+                live_mon_lay.style.display = 'block';
+            } else {
+                start_mon_lay.style.display = 'block';
+                live_mon_lay.style.display = 'none';
+            }
+            return true;
+        });
     });
 
     start_mon_btn.addEventListener('click', function () {

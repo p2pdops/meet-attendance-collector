@@ -1,4 +1,4 @@
-# Google Meet Attendance Collector : Chrome extension to collect session attendance
+## Google Meet Attendance Collector : Chrome extension to collect session attendance
 
 Simple Chrome Extension to record single time, time-wise attendance of members and will download to csv file.
 With this chrome extension 

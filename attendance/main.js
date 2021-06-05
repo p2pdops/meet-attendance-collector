@@ -1,4 +1,4 @@
-console.log = () => { }
+// console.log = () => { }
 let aliases = {};
 let attendees = new Set();
 let respond = function () {
@@ -119,7 +119,7 @@ chrome.runtime.onMessage.addListener(async (
 });
 
 function scrollTo(element, to, updateCallback, finishCallBack) {
-
+    if (!element) return console.log("ELEMENT NOT THERE")
     const duration = ((+getCountBox().innerHTML || 0) / 10) * 300;
     element.scrollTop = 0;
     return setTimeout(async function () {
@@ -133,6 +133,7 @@ function scrollTo(element, to, updateCallback, finishCallBack) {
             element.scrollTop = await easeInOutQuad(currentTime, start, change, duration);
 
             if (currentTime < duration)
+
                 await setTimeout(animateScroll, increment);
 
             await updateCallback && updateCallback()

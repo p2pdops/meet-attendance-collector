@@ -1,5 +1,5 @@
 {
-  "name": "Google Meet Attendance Collector (Compatible with New UI)",
+  "name": "Google Meet Attendance (Works with New UI)",
   "description": "Simple Chrome Extension to record single time, time-wise attendance of members and will download to csv file.",
   "permissions": ["tabs", "storage", "declarativeContent"],
   "version": "2.0.0",
